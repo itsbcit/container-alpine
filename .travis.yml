@@ -7,7 +7,7 @@ services:
 
 before_install:
   - docker build -t bcit/alpine .
-  - docker run -n $TRAVIS_COMMIT -d bcit/alpine /bin/sh -c "tail -f /dev/null"
+  - docker run --name $TRAVIS_COMMIT -d bcit/alpine /bin/sh -c "tail -f /dev/null"
   - docker ps -a
 
 script:
