@@ -4,6 +4,7 @@ LABEL maintainer="jesse@weisner.ca"
 ENV RUNUSER none
 ENV HOME /
 
+RUN apk upgrade --no-cache
 RUN apk add --no-cache \
         tini
 
