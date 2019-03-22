@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.9
 LABEL maintainer="jesse@weisner.ca"
 
 ENV RUNUSER none
