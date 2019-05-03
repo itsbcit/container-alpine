@@ -10,7 +10,7 @@ matrix:
     - env: "3.8"
       before_script:
         - cd ${TRAVIS_BUILD_DIR}/3.8
-        - docker build -t bcit/alpine:3.8
+        - docker build -t bcit/alpine:3.8 .
         - docker run --name ${TRAVIS_COMMIT}-3.8 -d bcit/alpine:3.8 /bin/sh -c "tail -f /dev/null"
         - docker ps -a
       script:
@@ -18,7 +18,7 @@ matrix:
     - env: "3.9"
       before_script:
         - cd ${TRAVIS_BUILD_DIR}/3.9
-        - docker build -t bcit/alpine:3.9
+        - docker build -t bcit/alpine:3.9 .
         - docker run --name ${TRAVIS_COMMIT}-3.9 -d bcit/alpine:3.9 /bin/sh -c "tail -f /dev/null"
         - docker ps -a
       script:
