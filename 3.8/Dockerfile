@@ -9,13 +9,15 @@ RUN apk add --no-cache \
         tini
 
 # Add docker-entrypoint script base
-ENV DE_VERSION v1.3
+ENV DE_VERSION v1.4
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/${DE_VERSION}/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
 RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz
 RUN chmod -R 555 /docker-entrypoint.*
 
 
 # Allow resolve-userid.sh script to run
-RUN chmod 664 /etc/passwd /etc/group
+RUN chmod 664 /etc/passwd /etc/group /etc/shadow \
+ && chown 0:0 /etc/shadow \
+ && chmod 775 /etc
 
 ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
