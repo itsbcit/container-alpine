@@ -15,8 +15,8 @@ task :default do
 
   maintainer = 'jesse@weisner.ca, chriswood.ca@gmail.com'
   org_name = 'bcit'
-  de_version   = '1.3'
   image_name = 'alpine'
+  de_version   = '1.4'
   tags = [
     '3.9',
     '3.8',
