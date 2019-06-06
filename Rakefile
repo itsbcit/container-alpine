@@ -26,7 +26,7 @@ task :default do
       sh "mkdir -p #{tag}"
       render_template("Dockerfile.erb", "#{tag}/Dockerfile", binding)
       Dir.chdir(tag) do
-        sh "docker build -t #{org_name}/#{image_name}:#{tag} ."
+        sh "docker build -t #{org_name}/#{image_name}:#{tag} . --no-cache --pull"
         sh "docker push #{org_name}/#{image_name}:#{tag}"
       end
   end
