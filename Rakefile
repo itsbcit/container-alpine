@@ -48,6 +48,33 @@ task :Dockerfile do
   end
 end
 
+desc "Build docker images"
+task :build do
+  tags.each do |tag|
+    Dir.chdir(tag) do
+      sh "docker build -t #{org_name}/#{image_name}:#{tag} . --no-cache --pull"
+    end
+  end
+end
+
+desc "Test docker images"
+task :test do
+  tags.each do |tag|
+    Dir.chdir(tag) do
+      puts "Running tests on #{org_name}/#{image_name}:#{tag}"
+      puts "lol"
+    end
+  end
+end
+
+# desc "Push to Docker Hub"
+# task :push do
+#   tags.each do |tag|
+#     Dir.chdir(tag) do
+#       sh "docker push #{org_name}/#{image_name}:#{tag}"
+#     end
+#   end
+# end
 
 # desc "Update Dockerfile templates"
 # task :default do
