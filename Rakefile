@@ -67,11 +67,11 @@ task :test do
   end
 end
 
-# desc "Push to Docker Hub"
-# task :push do
-#   tags.each do |tag|
-#     Dir.chdir(tag) do
-#       sh "docker push #{org_name}/#{image_name}:#{tag}"
-#     end
-#   end
-# end
+desc "Push to Docker Hub"
+task :push do
+  tags.each do |tag|
+    Dir.chdir(tag) do
+      sh "docker push #{org_name}/#{image_name}:#{tag}"
+    end
+  end
+end
