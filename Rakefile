@@ -14,6 +14,7 @@ maintainer        = 'jesse@weisner.ca, chriswood.ca@gmail.com'
 org_name          = 'bcit'
 image_name        = 'alpine'
 de_version        = '1.5'
+dockerize_version = '0.6.1'
 parent_tags       = [
   '3.9',
   '3.8',

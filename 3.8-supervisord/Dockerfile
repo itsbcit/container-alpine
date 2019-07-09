@@ -14,6 +14,12 @@ ADD https://github.com/itsbcit/docker-entrypoint/releases/download/${DE_VERSION}
 RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz
 RUN chmod -R 555 /docker-entrypoint.*
 
+# Add dockerize
+ADD https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-alpine-linux-amd64-v0.6.1.tar.gz /dockerize.tar.gz
+RUN tar zxf /dockerize.tar.gz -C /usr/local/bin \
+ && chown 0:0 /usr/local/bin/dockerize \
+ && chmod 0555 /usr/local/bin/dockerize \
+ && rm -f /dockerize.tar.gz
 
 # Allow resolve-userid.sh script to run
 RUN chmod 664 /etc/passwd /etc/group /etc/shadow \
