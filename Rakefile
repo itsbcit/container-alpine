@@ -13,7 +13,7 @@ end
 maintainer        = 'jesse@weisner.ca, chriswood.ca@gmail.com'
 org_name          = 'bcit'
 image_name        = 'alpine'
-tini_version      = '0.17.0'
+tini_version      = '0.18.0'
 de_version        = '1.5'
 dockerize_version = '0.6.1'
 parent_tags       = [

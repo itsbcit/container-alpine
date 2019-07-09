@@ -24,7 +24,7 @@ RUN tar zxf /dockerize.tar.gz -C /usr/local/bin \
  && rm -f /dockerize.tar.gz
 
 # Add Tini
-ADD https://github.com/krallin/tini/releases/download/v0.17.0/tini-static-amd64 /tini
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini-static-amd64 /tini
 RUN chmod +x /tini
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
