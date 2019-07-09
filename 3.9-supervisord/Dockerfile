@@ -26,9 +26,9 @@ RUN tar zxf /dockerize.tar.gz -C /usr/local/bin \
 ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
 # Install & configure supervisor
 RUN apk add --no-cache \
-    mkdir -p /var/log/supervisor && \
-    mkdir -p /etc/supervisor/conf.d
             supervisor \
+ && mkdir -p /var/log/supervisor \
+ && mkdir -p /etc/supervisor/conf.d
 COPY supervisor.conf /etc/supervisor.conf
 
 CMD ["supervisord", "-c", "/etc/supervisor.conf"]
