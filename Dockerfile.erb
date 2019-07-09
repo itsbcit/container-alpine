@@ -28,9 +28,9 @@ ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
 <% if tag.include? "supervisord" %>
 # Install & configure supervisor
 RUN apk add --no-cache \
-    supervisor && \
-    mkdir -p /var/log/supervisor && \
-    mkdir -p /etc/supervisor/conf.d
+ && supervisor \
+ && mkdir -p /var/log/supervisor \
+ && mkdir -p /etc/supervisor/conf.d
 COPY supervisor.conf /etc/supervisor.conf
 
 CMD ["supervisord", "-c", "/etc/supervisor.conf"]
