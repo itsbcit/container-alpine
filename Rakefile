@@ -61,7 +61,7 @@ task :test do
   tags.each do |tag|
     Dir.chdir(tag) do
       puts "Running tests on #{org_name}/#{image_name}:#{tag}"
-      puts "lol"
+      sh "docker run --rm #{org_name}/#{image_name}:#{tag} /bin/sh -c \"echo hello from #{org_name}/#{image_name}:#{tag}\""
     end
   end
 end
