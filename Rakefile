@@ -67,7 +67,7 @@ task :test do
   end
 end
 
-desc "Push to Docker Hub"
+desc "Push to Registry"
 task :push do
   tags.each do |tag|
     Dir.chdir(tag) do
