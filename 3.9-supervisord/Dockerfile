@@ -23,7 +23,11 @@ RUN tar zxf /dockerize.tar.gz -C /usr/local/bin \
  && chmod 0555 /usr/local/bin/dockerize \
  && rm -f /dockerize.tar.gz
 
-ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
+# Add Tini
+ADD https://github.com/krallin/tini/releases/download/v0.17.0/tini-static-amd64 /tini
+RUN chmod +x /tini
+
+ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 # Install & configure supervisor
 RUN apk add --no-cache \
             supervisor \
