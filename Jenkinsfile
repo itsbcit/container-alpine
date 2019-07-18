@@ -1,9 +1,9 @@
 node('dockerce') {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '6be5f607-a701-4a64-9097-c77c3f4cde24', url: env.GIT_URL]]])
 
-    stage('Template') {
+    stage('Dockerfile') {
         sh '''
-            rake update
+            rake Dockerfile
         '''
     }
 
