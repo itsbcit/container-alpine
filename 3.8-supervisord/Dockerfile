@@ -30,7 +30,7 @@ RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 # Install & configure supervisor
 RUN apk add --no-cache \
-            supervisor \
+        supervisor \
  && mkdir -p /var/log/supervisor \
  && mkdir -p /etc/supervisor/conf.d
 COPY supervisor.conf /etc/supervisor.conf
