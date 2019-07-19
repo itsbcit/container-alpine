@@ -28,6 +28,10 @@ tags              = [
   '3.8-supervisord',
 ]
 
+unless ENV['registry'].nil?
+  registry = ENV['registry']
+end
+
 desc "Template, build, tag, push"
 task :default do
   Rake::Task[:Dockerfile].invoke
