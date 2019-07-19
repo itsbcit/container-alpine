@@ -11,6 +11,7 @@ def render_template(template, output, scope)
 end
 
 maintainer        = 'jesse@weisner.ca, chriswood.ca@gmail.com'
+registry          = 'docker.io'
 org_name          = 'bcit'
 image_name        = 'alpine'
 tini_version      = '0.18.0'
@@ -53,7 +54,7 @@ desc "Build docker images"
 task :build do
   tags.each do |tag|
     Dir.chdir(tag) do
-      sh "docker build -t #{org_name}/#{image_name}:#{tag} . --no-cache --pull"
+      sh "docker build -t #{registry}/#{org_name}/#{image_name}:#{tag} . --no-cache --pull"
     end
   end
 end
@@ -63,7 +64,7 @@ task :test do
   tags.each do |tag|
     Dir.chdir(tag) do
       puts "Running tests on #{org_name}/#{image_name}:#{tag}"
-      sh "docker run --rm #{org_name}/#{image_name}:#{tag} /bin/sh -c \"echo hello from #{org_name}/#{image_name}:#{tag}\""
+      sh "docker run --rm #{registry}/#{org_name}/#{image_name}:#{tag} /bin/sh -c \"echo hello from #{org_name}/#{image_name}:#{tag}\""
     end
   end
 end
@@ -72,7 +73,7 @@ desc "Push to Registry"
 task :push do
   tags.each do |tag|
     Dir.chdir(tag) do
-      sh "docker push #{org_name}/#{image_name}:#{tag}"
+      sh "docker push #{registry}/#{org_name}/#{image_name}:#{tag}"
     end
   end
 end
