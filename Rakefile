@@ -18,12 +18,15 @@ tini_version      = '0.18.0'
 de_version        = '1.5'
 dockerize_version = '0.6.1'
 parent_tags       = [
+  '3.10',
   '3.9',
   '3.8',
 ]
 tags              = [
+  '3.10',
   '3.9',
   '3.8',
+  '3.10-supervisord',
   '3.9-supervisord',
   '3.8-supervisord',
 ]
