@@ -1,5 +1,7 @@
-FROM alpine:<%= parent_tag %>
-LABEL maintainer="<%= maintainer %>"
+FROM alpine:<%= image.version %>
+<% image.labels.each do |label, value| -%>
+LABEL <%= label %>="<%= value %>"
+<% end -%>
 
 ENV RUNUSER none
 ENV HOME /
@@ -9,7 +11,7 @@ RUN apk add --no-cache \
         tini
 
 # Add docker-entrypoint script base
-ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v<%= de_version %>/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
+ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v<%= image.vars['de_version'] %>/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
 RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
  && chmod -R 555 /docker-entrypoint.* \
  && chmod 664 /etc/passwd /etc/group /etc/shadow \
@@ -17,18 +19,19 @@ RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
  && chmod 775 /etc
 
 # Add dockerize
-ADD https://github.com/jwilder/dockerize/releases/download/v<%= dockerize_version %>/dockerize-alpine-linux-amd64-v<%= dockerize_version %>.tar.gz /dockerize.tar.gz
+ADD https://github.com/jwilder/dockerize/releases/download/v<%= image.vars['dockerize_version'] %>/dockerize-alpine-linux-amd64-v<%= image.vars['dockerize_version'] %>.tar.gz /dockerize.tar.gz
 RUN tar zxf /dockerize.tar.gz -C /usr/local/bin \
  && chown 0:0 /usr/local/bin/dockerize \
  && chmod 0555 /usr/local/bin/dockerize \
  && rm -f /dockerize.tar.gz
 
 # Add Tini
-ADD https://github.com/krallin/tini/releases/download/v<%= tini_version %>/tini-static-amd64 /tini
+ADD https://github.com/krallin/tini/releases/download/v<%= image.vars['tini_version'] %>/tini-static-amd64 /tini
 RUN chmod +x /tini
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
-<% if tag.include? "supervisord" %>
+<% if image.variant == 'supervisord' -%>
+
 # Install & configure supervisor
 RUN apk add --no-cache \
         supervisor \
@@ -37,4 +40,4 @@ RUN apk add --no-cache \
 COPY supervisor.conf /etc/supervisor.conf
 
 CMD ["supervisord", "-c", "/etc/supervisor.conf"]
-<% end %>
+<% end -%>
