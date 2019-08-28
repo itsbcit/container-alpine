@@ -21,7 +21,13 @@ matrix:
         - docker build -t bcit/alpine:3.9 .
         - docker run --name ${TRAVIS_COMMIT}-3.9 -d bcit/alpine:3.9 /bin/sh -c "tail -f /dev/null"
         - docker ps -a
+    - env: "3.10"
+      before_script:
+        - cd ${TRAVIS_BUILD_DIR}/3.10
+        - docker build -t bcit/alpine:3.10 .
+        - docker run --name ${TRAVIS_COMMIT}-3.10 -d bcit/alpine:3.10 /bin/sh -c "tail -f /dev/null"
+        - docker ps -a
       script:
-        - docker exec ${TRAVIS_COMMIT}-3.9 /bin/sh -c "cat /etc/os-release"
+        - docker exec ${TRAVIS_COMMIT}-3.10 /bin/sh -c "cat /etc/os-release"
 on:
   branch: master
