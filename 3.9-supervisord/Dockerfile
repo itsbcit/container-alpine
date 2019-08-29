@@ -1,6 +1,7 @@
 FROM alpine:3.9
+
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1567014618"
+LABEL build_id="1567112021"
 
 ENV RUNUSER none
 ENV HOME /
@@ -19,7 +20,8 @@ RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
 
 # Add dockerize
 ADD https://github.com/jwilder/dockerize/releases/download/v0.6.0/dockerize-alpine-linux-amd64-v0.6.0.tar.gz /dockerize.tar.gz
-RUN tar zxf /dockerize.tar.gz -C /usr/local/bin \
+RUN [ -d /usr/local/bin ] || mkdir -p /usr/local/bin \
+ && tar zxf /dockerize.tar.gz -C /usr/local/bin \
  && chown 0:0 /usr/local/bin/dockerize \
  && chmod 0555 /usr/local/bin/dockerize \
  && rm -f /dockerize.tar.gz
