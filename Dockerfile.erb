@@ -6,8 +6,6 @@ ENV RUNUSER none
 ENV HOME /
 
 RUN apk upgrade --no-cache
-RUN apk add --no-cache \
-        tini
 
 <%= snippet('docker-entrypoint', binding) -%>
 

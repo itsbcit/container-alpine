@@ -1,14 +1,12 @@
 FROM alpine:3.8
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1567118197"
+LABEL build_id="1567134986"
 
 ENV RUNUSER none
 ENV HOME /
 
 RUN apk upgrade --no-cache
-RUN apk add --no-cache \
-        tini
 
 # Add docker-entrypoint script base
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.5/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
