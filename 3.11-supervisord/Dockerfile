@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.11
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
 LABEL build_id="1588810679"
@@ -31,3 +31,12 @@ ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini-static-amd64 
 RUN chmod +x /tini
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
+
+# Install & configure supervisor
+RUN apk add --no-cache \
+        supervisor \
+ && mkdir -p /var/log/supervisor \
+ && mkdir -p /etc/supervisor/conf.d
+COPY supervisor.conf /etc/supervisor.conf
+
+CMD ["supervisord", "-c", "/etc/supervisor.conf"]
