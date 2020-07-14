@@ -1,7 +1,7 @@
 FROM alpine:3.10
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1588810679"
+LABEL build_id="1594762911"
 
 ENV RUNUSER none
 ENV HOME /
@@ -31,6 +31,9 @@ ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini-static-amd64 
 RUN chmod +x /tini
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
+
+RUN apk add --no-cache \
+        rsync
 
 # Install & configure supervisor
 RUN apk add --no-cache \
