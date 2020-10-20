@@ -16,7 +16,8 @@ RUN apk upgrade --no-cache
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 RUN apk add --no-cache \
-        rsync
+        rsync \
+        tzdata 
 <% if image.variant == 'supervisord' -%>
 
 # Install & configure supervisor

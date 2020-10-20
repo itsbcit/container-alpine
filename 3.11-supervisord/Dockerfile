@@ -1,7 +1,7 @@
 FROM alpine:3.11
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1594762911"
+LABEL build_id="1603238020"
 
 ENV RUNUSER none
 ENV HOME /
@@ -33,7 +33,8 @@ RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 RUN apk add --no-cache \
-        rsync
+        rsync \
+        tzdata 
 
 # Install & configure supervisor
 RUN apk add --no-cache \
