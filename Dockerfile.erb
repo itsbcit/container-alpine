@@ -6,7 +6,6 @@ ENV TZ America/Vancouver
 ENV RUNUSER none
 ENV HOME /
 
-
 RUN apk upgrade --no-cache
 
 <%= snippet('docker-entrypoint', binding) -%>

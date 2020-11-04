@@ -1,12 +1,11 @@
 FROM alpine:3.10
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1604530458"
+LABEL build_id="1604532656"
 
 ENV TZ America/Vancouver
 ENV RUNUSER none
 ENV HOME /
-
 
 RUN apk upgrade --no-cache
 
@@ -30,7 +29,8 @@ ENV DOCKERIZE_ENV production
 
 # Add Tini
 ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini-static-amd64 /tini
-RUN chmod +x /tini
+RUN chmod +x /tini \
+ && ln -s /tini /sbin/tini 
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
