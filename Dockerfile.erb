@@ -2,8 +2,10 @@ FROM alpine:<%= image.version %>
 
 <%= snippet('labels', binding) -%>
 
+ENV TZ America/Vancouver
 ENV RUNUSER none
 ENV HOME /
+
 
 RUN apk upgrade --no-cache
 

@@ -1,10 +1,12 @@
 FROM alpine:3.9
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1603238020"
+LABEL build_id="1604530458"
 
+ENV TZ America/Vancouver
 ENV RUNUSER none
 ENV HOME /
+
 
 RUN apk upgrade --no-cache
 
