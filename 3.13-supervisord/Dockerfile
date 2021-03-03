@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.13
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
 LABEL build_id="1614732705"
@@ -37,3 +37,12 @@ ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 RUN apk add --no-cache \
         rsync \
         tzdata 
+
+# Install & configure supervisor
+RUN apk add --no-cache \
+        supervisor \
+ && mkdir -p /var/log/supervisor \
+ && mkdir -p /etc/supervisor/conf.d
+COPY supervisor.conf /etc/supervisor.conf
+
+CMD ["supervisord", "-c", "/etc/supervisor.conf"]
