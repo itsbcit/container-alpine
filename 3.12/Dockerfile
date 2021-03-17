@@ -1,7 +1,7 @@
 FROM alpine:3.12
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1614732705"
+LABEL build_id="1616000148"
 
 ENV TZ America/Vancouver
 ENV RUNUSER none
@@ -36,4 +36,5 @@ ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 RUN apk add --no-cache \
         rsync \
-        tzdata 
+        tzdata \
+ && cp "/usr/share/zoneinfo/${TZ}" /etc/localtime
