@@ -1,5 +1,9 @@
 ---
 image_name: alpine
+registries:
+  - url: bcit.io
+  - url: docker.io
+    org_name: bcit
 labels:
   maintainer: "jesse@weisner.ca, chriswood.ca@gmail.com"
 versions:
