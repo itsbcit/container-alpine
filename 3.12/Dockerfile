@@ -1,7 +1,7 @@
 FROM alpine:3.12
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1616000795"
+LABEL build_id="1621486844"
 
 ENV TZ America/Vancouver
 ENV RUNUSER none
@@ -18,7 +18,7 @@ RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
  && chmod 775 /etc
 
 # Add dockerize
-ADD https://github.com/jwilder/dockerize/releases/download/v0.6.0/dockerize-alpine-linux-amd64-v0.6.0.tar.gz /dockerize.tar.gz
+ADD https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-alpine-linux-amd64-v0.6.1.tar.gz /dockerize.tar.gz
 RUN [ -d /usr/local/bin ] || mkdir -p /usr/local/bin \
  && tar zxf /dockerize.tar.gz -C /usr/local/bin \
  && chown 0:0 /usr/local/bin/dockerize \
@@ -28,7 +28,7 @@ RUN [ -d /usr/local/bin ] || mkdir -p /usr/local/bin \
 ENV DOCKERIZE_ENV production
 
 # Add Tini
-ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini-static-amd64 /tini
+ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 /tini
 RUN chmod +x /tini \
  && ln -s /tini /sbin/tini 
 
