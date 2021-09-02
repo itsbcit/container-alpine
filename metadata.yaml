@@ -9,6 +9,7 @@ labels:
 versions:
   '3.12':
   '3.13':
+  '3.14':
     version_tags:
       - latest
 variants:
