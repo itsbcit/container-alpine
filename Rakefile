@@ -36,7 +36,7 @@ end
 
 desc 'Install Rakefile support files'
 task :install do
-  open('https://github.com/itsbcit/docker-rakefile/releases/latest/download/lib.zip') do |archive|
+  URI.open('https://github.com/itsbcit/docker-rakefile/releases/latest/download/lib.zip') do |archive|
     FileUtils.remove_entry('lib') if File.exist?('lib')
     tempfile = Tempfile.new(['lib', '.zip'])
     File.open(tempfile.path, 'wb') do |f|
@@ -50,7 +50,7 @@ end
 desc 'Update Rakefile to latest release version'
 task :update do
   Rake::Task[:install].invoke
-  open('https://github.com/itsbcit/docker-rakefile/releases/latest/download/Rakefile') do |rakefile|
+  URI.open('https://github.com/itsbcit/docker-rakefile/releases/latest/download/Rakefile') do |rakefile|
     File.open('Rakefile', 'wb') do |f|
       f.write(rakefile.read)
     end
