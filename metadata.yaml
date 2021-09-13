@@ -15,5 +15,3 @@ versions:
 variants:
   '':
   supervisord:
-    files:
-      - supervisor.conf
