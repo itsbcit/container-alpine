@@ -7,7 +7,7 @@
 desc 'Test docker images'
 task :test do
   # check that the build system is available
-  build_system = Docker.new()
+  build_system = Docker.new
   unless build_system.running?
     puts "#{build_system.name} sanity check failed.".red
     exit 1
@@ -17,8 +17,9 @@ task :test do
   $images.each do |image|
     # basic container test
     begin
-      puts "Running tests on #{image.build_tag}".green
-      container = `docker run --rm --health-interval=2s -d #{image.build_tag} init-loop`.strip
+      build_tag = image.build_name_tag
+      puts "Image: #{build_tag}".pink
+      container = `docker run --rm --health-interval=2s -d #{build_tag} init-loop`.strip
       exit 1 unless $?.success?
 
       # wait for container state "running"
@@ -28,7 +29,8 @@ task :test do
         state = `docker inspect --format='{{.State.Status}}' #{container}`.strip
         exit 1 unless $?.success?
         break if state == 'running'
-        printf "."
+
+        printf '.'
         sleep 1
       end
       puts
@@ -39,7 +41,7 @@ task :test do
 
       # if the container has a health check, wait up to 20 seconds for it to be successful
       container_health = `docker inspect --format='{{.State.Health}}' #{container}`.strip
-      hashealth = container_health == "<nil>" ? false : true
+      hashealth = container_health != '<nil>'
       if hashealth
         printf 'Waiting for container healthy'
         health_status = ''
@@ -47,7 +49,8 @@ task :test do
           health_status = `docker inspect --format='{{.State.Health.Status}}' #{container}`.strip
           exit 1 unless $?.success?
           break if health_status == 'healthy'
-          printf "."
+
+          printf '.'
           sleep 1
         end
         puts
@@ -66,6 +69,6 @@ task :test do
     ensure
       sh "docker kill #{container}"
     end
-    puts "Testing image #{image.build_tag} successful.".green
+    puts "Testing image #{image.build_name_tag} successful.".green
   end
 end
