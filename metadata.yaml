@@ -4,6 +4,9 @@ registries:
   - url: bcit.io
   - url: ''
     org_name: bcit
+tags:
+  - '<%= tag_join(version, variant) %>'
+  - '<%= tag_join(version, variant, "latest") %>'
 labels:
   maintainer: "jesse@weisner.ca, chriswood.ca@gmail.com"
 versions:
