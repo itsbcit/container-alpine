@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.15
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
 LABEL build_id="1642444900"
@@ -38,3 +38,12 @@ RUN apk add --no-cache \
         rsync \
         tzdata \
  && cp "/usr/share/zoneinfo/${TZ}" /etc/localtime
+
+# Install & configure supervisor
+RUN apk add --no-cache \
+        supervisor \
+ && mkdir -p /var/log/supervisor \
+ && mkdir -p /etc/supervisor/conf.d
+COPY supervisor.conf /etc/supervisor.conf
+
+CMD ["supervisord", "-c", "/etc/supervisor.conf"]
