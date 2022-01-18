@@ -1,7 +1,7 @@
 FROM alpine:3.12
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1642444900"
+LABEL build_id="1642468223"
 
 ENV TZ America/Vancouver
 ENV RUNUSER none
@@ -10,7 +10,7 @@ ENV HOME /
 RUN apk upgrade --no-cache
 
 # Add docker-entrypoint script base
-ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.5/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
+ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.6/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
 RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
  && chmod -R 555 /docker-entrypoint.* \
  && chmod 664 /etc/passwd /etc/group /etc/shadow \
@@ -36,5 +36,7 @@ ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 RUN apk add --no-cache \
         rsync \
-        tzdata \
- && cp "/usr/share/zoneinfo/${TZ}" /etc/localtime
+        tzdata \ 
+ && ln -svf "/usr/share/zoneinfo/${TZ}" /etc/localtime \
+ && echo "${TZ}" > /etc/timezone \
+ && chmod 664 /etc/timezone /etc/localtime
