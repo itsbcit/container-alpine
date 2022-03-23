@@ -2,7 +2,7 @@
 image_name: alpine
 registries:
   - url: bcit.io
-  - url: 'docker.io'
+  - url: ''
     org_name: bcit
 tags:
   - '<%= tag_join(version, variant) %>'
