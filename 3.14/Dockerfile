@@ -1,19 +1,28 @@
 FROM alpine:3.14
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1642468223"
+LABEL build_id="1648072614"
 
 ENV TZ America/Vancouver
 ENV RUNUSER none
 ENV HOME /
 
-RUN apk upgrade --no-cache
+RUN apk upgrade --no-cache \
+ && apk add --no-cache \
+        rsync \
+        tzdata
 
 # Add docker-entrypoint script base
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.6/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
 RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
  && chmod -R 555 /docker-entrypoint.* \
- && chmod 664 /etc/passwd /etc/group /etc/shadow \
+ && echo "UTC" > /etc/timezone \
+ && ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
+ && chmod 664 /etc/passwd \
+              /etc/group \
+              /etc/shadow \
+              /etc/timezone \
+              /etc/localtime \
  && chown 0:0 /etc/shadow \
  && chmod 775 /etc
 
@@ -32,11 +41,6 @@ ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 
 RUN chmod +x /tini \
  && ln -s /tini /sbin/tini 
 
+
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
-RUN apk add --no-cache \
-        rsync \
-        tzdata \ 
- && ln -svf "/usr/share/zoneinfo/${TZ}" /etc/localtime \
- && echo "${TZ}" > /etc/timezone \
- && chmod 664 /etc/timezone /etc/localtime
