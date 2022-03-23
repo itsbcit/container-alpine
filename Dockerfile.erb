@@ -7,6 +7,9 @@ ENV RUNUSER none
 ENV HOME /
 
 RUN apk upgrade --no-cache
+ && apk add --no-cache \
+        rsync \
+        tzdata
 
 <%= snippet('docker-entrypoint', binding) %>
 <%= snippet('dockerize', binding) %>
@@ -14,9 +17,6 @@ RUN apk upgrade --no-cache
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
-RUN apk add --no-cache \
-        rsync \
-        tzdata \ 
 <% if image.variant == 'supervisord' -%>
 
 # Install & configure supervisor
