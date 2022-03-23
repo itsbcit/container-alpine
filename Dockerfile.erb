@@ -17,9 +17,6 @@ ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 RUN apk add --no-cache \
         rsync \
         tzdata \ 
- && ln -svf "/usr/share/zoneinfo/${TZ}" /etc/localtime \
- && echo "${TZ}" > /etc/timezone \
- && chmod 664 /etc/timezone /etc/localtime
 <% if image.variant == 'supervisord' -%>
 
 # Install & configure supervisor
