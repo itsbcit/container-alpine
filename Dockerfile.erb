@@ -8,11 +8,9 @@ ENV HOME /
 
 RUN apk upgrade --no-cache
 
-<%= snippet('docker-entrypoint', binding) -%>
-
-<%= snippet('dockerize', binding) -%>
-
-<%= snippet('tini', binding) -%>
+<%= snippet('docker-entrypoint', binding) %>
+<%= snippet('dockerize', binding) %>
+<%= snippet('tini', binding) %>
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
