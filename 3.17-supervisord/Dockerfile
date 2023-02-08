@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.17
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
 LABEL build_id="1675883468"
