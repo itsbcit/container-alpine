@@ -1,9 +1,7 @@
 ---
 image_name: alpine
 registries:
-  - url: bcit.io
-  - url: ''
-    org_name: bcit
+  - url: bcit.io/library
 tags:
   - '<%= tag_join(version, variant) %>'
   - '<%= tag_join(version, variant, "latest") %>'
