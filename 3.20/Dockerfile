@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.20
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
 LABEL build_id="1721407890"
@@ -44,12 +44,3 @@ RUN chmod +x /tini \
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
-
-# Install & configure supervisor
-RUN apk add --no-cache \
-        supervisor \
- && mkdir -p /var/log/supervisor \
- && mkdir -p /etc/supervisor/conf.d
-COPY supervisor.conf /etc/supervisor.conf
-
-CMD ["supervisord", "-c", "/etc/supervisor.conf"]
